@@ -1,0 +1,8 @@
+{
+  "sample_count": 2000,
+  "seed": 123,
+  "round": 1,
+  "train_epochs": 5,
+  "batch_size": 256,
+  "learning_rate": 0.1
+}

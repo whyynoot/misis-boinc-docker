@@ -1,0 +1,11 @@
+<version>
+    <file>
+        <physical_name>mnist.sh</physical_name>
+        <main_program/>
+        <copy_file/>
+    </file>
+    <file>
+        <physical_name>mnist.py</physical_name>
+        <copy_file/>
+    </file>
+</version>

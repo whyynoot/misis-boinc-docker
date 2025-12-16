@@ -1,0 +1,96 @@
+volumes:
+  mysql:
+  project:
+  results:
+  secrets:
+  client1_state:
+  client2_state:
+
+services:
+  mysql:
+    image: boinc/server_mysql:$VERSION$TAG$DEFAULTARGS
+    build: 
+      context: images/mysql
+      target: mysql$DEFAULTARGS
+    volumes:
+      - "mysql:/var/lib/mysql"
+
+  makeproject:
+    image: boinc/server_makeproject:$VERSION$TAG$DEFAULTARGS
+    build: 
+      context: images/makeproject
+      target: makeproject$DEFAULTARGS
+      args:
+        - TAG
+        - BOINC_USER
+        - PROJECT_ROOT
+    volumes:
+      - "project:$PROJECT_ROOT.dst"
+      - "secrets:/run/secrets"
+    hostname: makeproject
+    environment:
+      - URL_BASE
+      - PROJECT
+
+  apache:
+    image: boinc/server_apache:$VERSION$TAG$DEFAULTARGS
+    build: 
+      context: images/apache
+      target: apache$DEFAULTARGS
+      args:
+        - TAG
+        - BOINC_USER
+        - PROJECT_ROOT
+    hostname: $PROJECT
+    depends_on:
+      - mysql
+    volumes: 
+      - "project:$PROJECT_ROOT"
+      - "results:/results"
+      - "secrets:/run/secrets"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./images/apache/makeproject-step3.sh:/usr/bin/makeproject-step3.sh:ro"
+      - "./overrides/project.inc:/home/boincadm/project/html/project/project.inc:ro"
+      - "./overrides/config.xml:/home/boincadm/project/config.xml:ro"
+      - "./apps/mnist:/home/boincadm/project/apps/mnist:ro"
+      - "./apps/mnist/assimilate_mnist.sh:/home/boincadm/project/bin/assimilate_mnist.sh:ro"
+    ports: 
+      - "8082:80"
+    tty: true
+    environment:
+      - URL_BASE
+      - PROJECT
+
+  client1:
+    build:
+      context: ./clients
+    image: boinc/mnist-client:latest
+    hostname: client1
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client1_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client2:
+    image: boinc/mnist-client:latest
+    hostname: client2
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client2_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
