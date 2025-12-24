@@ -7,9 +7,15 @@ FROM debian:stretch-slim AS base
 
 LABEL maintainer="Marius Millea <mariusmillea@gmail.com>"
 
+# fix stretch repositories (EOL)
+RUN sed -i 's|deb.debian.org/debian|archive.debian.org/debian|g' /etc/apt/sources.list \
+    && sed -i 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' /etc/apt/sources.list \
+    && sed -i '/stretch-updates/d' /etc/apt/sources.list \
+    && printf 'Acquire::Check-Valid-Until "false";\nAcquire::AllowInsecureRepositories "true";\nAcquire::AllowDowngradeToInsecureRepositories "true";\n' > /etc/apt/apt.conf.d/99archive
+
 # install packages
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends --allow-unauthenticated \
         ca-certificates \
         curl \
         dh-autoreconf \
@@ -18,6 +24,7 @@ RUN apt-get update \
         libcurl4-gnutls-dev \
         default-libmysqlclient-dev \
         libssl-dev \
+        libzip-dev \
         m4 \
         make \
         mysql-client \
@@ -33,10 +40,19 @@ RUN apt-get update \
 
 # get source and compile server 
 COPY --chown=1000 boinc /usr/local/boinc
+RUN find /usr/local/boinc -type f -name "*.sh" -exec sed -i 's/\r$//' {} + \
+    && find /usr/local/boinc -type f -name "*.py" -exec sed -i 's/\r$//' {} + \
+    && sed -i 's/\r$//' /usr/local/boinc/_autosetup /usr/local/boinc/tools/make_project \
+    && chmod +x /usr/local/boinc/_autosetup /usr/local/boinc/tools/make_project
+RUN mkdir -p /usr/local/include/nlohmann \
+    && curl -fsSL https://raw.githubusercontent.com/nlohmann/json/v3.11.3/single_include/nlohmann/json.hpp \
+    -o /usr/local/include/nlohmann/json.hpp
 RUN cd /usr/local/boinc && ./_autosetup && ./configure --disable-client --disable-manager && make
 
 # project-making scripts
 COPY makeproject-step1.sh makeproject-step2.sh /usr/local/bin/
+RUN sed -i 's/\r$//' /usr/local/bin/makeproject-step1.sh /usr/local/bin/makeproject-step2.sh \
+    && chmod +x /usr/local/bin/makeproject-step1.sh /usr/local/bin/makeproject-step2.sh
 
 # some other project files (some of which will be put in the correct place with
 # ONBUILD instructions later)
@@ -51,8 +67,13 @@ FROM debian:stretch-slim AS b2d
 # do boinc2docker as a separate stage so we don't have to keep re-downloading
 # things whenever the build cache is invalidated
 
+RUN sed -i 's|deb.debian.org/debian|archive.debian.org/debian|g' /etc/apt/sources.list \
+    && sed -i 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' /etc/apt/sources.list \
+    && sed -i '/stretch-updates/d' /etc/apt/sources.list \
+    && printf 'Acquire::Check-Valid-Until "false";\nAcquire::AllowInsecureRepositories "true";\nAcquire::AllowDowngradeToInsecureRepositories "true";\n' > /etc/apt/apt.conf.d/99archive
+
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends --allow-unauthenticated \
         ca-certificates \
         python-yaml \
         wget
@@ -71,7 +92,7 @@ FROM base AS base-b2d
 # copy/install extra things needed for the `-b2d` version
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends --allow-unauthenticated \
         python-yaml \
         wget \
     && rm -rf /var/lib/apt/lists

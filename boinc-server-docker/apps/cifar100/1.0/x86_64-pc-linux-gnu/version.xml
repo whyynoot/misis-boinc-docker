@@ -1,0 +1,11 @@
+<version>
+    <file>
+        <physical_name>cifar100.sh</physical_name>
+        <main_program/>
+        <copy_file/>
+    </file>
+    <file>
+        <physical_name>cifar100.py</physical_name>
+        <copy_file/>
+    </file>
+</version>

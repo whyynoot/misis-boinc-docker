@@ -46,6 +46,17 @@ function Get-ResultState {
     }
 }
 
+function Get-ClientServices {
+    docker compose ps --services | Where-Object { $_ -match "^client\d+$" }
+}
+
+function Update-Clients {
+    param([string]$ProjectUrl)
+    foreach ($client in (Get-ClientServices)) {
+        docker compose exec $client boinccmd --project $ProjectUrl update | Out-Null
+    }
+}
+
 for ($r = 1; $r -le $Rounds; $r++) {
     $wuThis = "${WuName}_r${r}"
     Write-Host "`nSubmitting MNIST workunit $wuThis (round $r/$Rounds)..."
@@ -69,10 +80,7 @@ cd /home/boincadm/project && bin/create_work --appname mnist --wu_name $wuThis -
     docker compose exec apache bash -lc $createCmd
 
     # Nudge all clients to fetch work immediately
-    docker compose exec client1 boinccmd --project http://host.docker.internal:8082/boincserver update
-    if ($(docker compose ps --services | Select-String -Pattern "^client2$")) {
-        docker compose exec client2 boinccmd --project http://host.docker.internal:8082/boincserver update
-    }
+    Update-Clients -ProjectUrl "http://host.docker.internal:8082/boincserver"
 
     # Wait for the daemons (scheduler/transitioner/validator/assimilator/file_deleter) to process the job
     $deadline = (Get-Date).AddSeconds($PollSeconds)
@@ -81,10 +89,7 @@ cd /home/boincadm/project && bin/create_work --appname mnist --wu_name $wuThis -
 
     while ((Get-Date) -lt $deadline) {
         Start-Sleep -Seconds $PollIntervalSeconds
-        docker compose exec client1 boinccmd --project http://host.docker.internal:8082/boincserver update | Out-Null
-        if ($(docker compose ps --services | Select-String -Pattern "^client2$")) {
-            docker compose exec client2 boinccmd --project http://host.docker.internal:8082/boincserver update | Out-Null
-        }
+        Update-Clients -ProjectUrl "http://host.docker.internal:8082/boincserver"
         $state = Get-ResultState -ResultName $resultName
         if ($state) {
             Write-Host ("State server={0} outcome={1} validate={2} assimilate={3} file_delete={4}" -f $state.ServerState, $state.Outcome, $state.ValidateState, $state.AssimilateState, $state.FileDeleteState)

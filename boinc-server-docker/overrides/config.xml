@@ -6,6 +6,8 @@
         <send_result_abort>1</send_result_abort>
         <long_name>boincserver</long_name>
         <sched_debug_level>3</sched_debug_level>
+        <enable_assignment>1</enable_assignment>
+        <enable_assignment_multi>1</enable_assignment_multi>
         <cache_md5_info>1</cache_md5_info>
         <upload_url>http://host.docker.internal:8082/boincserver_cgi/file_upload_handler</upload_url>
         <disable_account_creation>0</disable_account_creation>
@@ -114,6 +116,7 @@
         </daemon>
         <daemon>
             <cmd>file_deleter -d 3</cmd>
+            <disabled>1</disabled>
         </daemon>
         <daemon>
             <cmd>script_assimilator --app boinc2docker --script "boinc2docker_assimilator files"</cmd>
@@ -134,6 +137,16 @@
             <cmd>script_assimilator --app mnist --script "assimilate_mnist.sh files wu_id result_id runtime"</cmd>
             <output>script_assimilator_mnist.log</output>
             <pid_file>script_assimilator_mnist.pid</pid_file>
+        </daemon>
+        <daemon>
+            <cmd>sample_trivial_validator -app cifar100</cmd>
+            <output>sample_trivial_validator_cifar100.log</output>
+            <pid_file>sample_trivial_validator_cifar100.pid</pid_file>
+        </daemon>
+        <daemon>
+            <cmd>script_assimilator --app cifar100 --script "assimilate_cifar100.sh files wu_id result_id runtime"</cmd>
+            <output>script_assimilator_cifar100.log</output>
+            <pid_file>script_assimilator_cifar100.pid</pid_file>
         </daemon>
     </daemons>
 </boinc>

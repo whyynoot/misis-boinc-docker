@@ -5,6 +5,14 @@ volumes:
   secrets:
   client1_state:
   client2_state:
+  client3_state:
+  client4_state:
+  client5_state:
+  client6_state:
+  client7_state:
+  client8_state:
+  client9_state:
+  client10_state:
 
 services:
   mysql:
@@ -54,6 +62,8 @@ services:
       - "./overrides/config.xml:/home/boincadm/project/config.xml:ro"
       - "./apps/mnist:/home/boincadm/project/apps/mnist:ro"
       - "./apps/mnist/assimilate_mnist.sh:/home/boincadm/project/bin/assimilate_mnist.sh:ro"
+      - "./apps/cifar100:/home/boincadm/project/apps/cifar100:ro"
+      - "./apps/cifar100/assimilate_cifar100.sh:/home/boincadm/project/bin/assimilate_cifar100.sh:ro"
     ports: 
       - "8082:80"
     tty: true
@@ -66,11 +76,14 @@ services:
       context: ./clients
     image: boinc/mnist-client:latest
     hostname: client1
+    gpus: all
     depends_on:
       - apache
     environment:
       - BOINC_GUI_RPC_PASSWORD=boinc123
       - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
       - NO_PROXY=host.docker.internal
       - no_proxy=host.docker.internal
     volumes:
@@ -91,6 +104,134 @@ services:
       - no_proxy=host.docker.internal
     volumes:
       - "client2_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client3:
+    image: boinc/mnist-client:latest
+    hostname: client3
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client3_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client4:
+    image: boinc/mnist-client:latest
+    hostname: client4
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client4_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client5:
+    image: boinc/mnist-client:latest
+    hostname: client5
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client5_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client6:
+    image: boinc/mnist-client:latest
+    hostname: client6
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client6_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client7:
+    image: boinc/mnist-client:latest
+    hostname: client7
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client7_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client8:
+    image: boinc/mnist-client:latest
+    hostname: client8
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client8_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client9:
+    image: boinc/mnist-client:latest
+    hostname: client9
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client9_state:/var/lib/boinc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  client10:
+    image: boinc/mnist-client:latest
+    hostname: client10
+    depends_on:
+      - apache
+    environment:
+      - BOINC_GUI_RPC_PASSWORD=boinc123
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc --attach_project http://host.docker.internal:8082/boincserver 8349f3485acdb83aa9dd1cf32d7038be
+      - NO_PROXY=host.docker.internal
+      - no_proxy=host.docker.internal
+    volumes:
+      - "client10_state:/var/lib/boinc"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped

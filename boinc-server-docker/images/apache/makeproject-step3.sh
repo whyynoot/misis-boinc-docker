@@ -35,6 +35,10 @@ do
         apache2ctl -k graceful
     fi
     
+    if [ -f bin/start ]; then
+        sed -i 's/\r$//' bin/start
+    fi
+
     # start daemons as $BOINC_USER
     su $BOINC_USER -c """
         bin/start

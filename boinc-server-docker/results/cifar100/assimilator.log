@@ -1,0 +1,54 @@
+2025-12-22T12:03:26+00:00 [cifar100_run20251220162011_r1] missing file 26
+2025-12-22T12:03:26+00:00 [cifar100_run20251220165232_r1_] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client1] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client10] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client2] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client3] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client4] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client5] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client6] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client7] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client8] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220174958_r1_client9] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251220215534_r1] missing file 26
+2025-12-22T12:03:26+00:00 [cifar100_run20251222031522_r1_client1] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251222031522_r1_client10] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251222031522_r1_client2] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251222031522_r1_client3] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251222031546_r1_client1] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251222031546_r1_client10] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251222031546_r1_client2] missing file 16
+2025-12-22T12:03:26+00:00 [cifar100_run20251222031546_r1_client3] missing file 16
+2025-12-22T12:03:26+00:00 [test_wu] missing file 24
+2025-12-22T12:03:26+00:00 [test2] missing file 16
+2025-12-22T12:10:10+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:12:34+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:14:05+00:00 [61] start args="" files="/home/boincadm/project/upload/33a/cifar100_debug_r1_0_r1343621929_0"
+2025-12-22T12:14:05+00:00 [61] saved cifar100_debug_r1_0_r1343621929_0 from /home/boincadm/project/upload/33a/cifar100_debug_r1_0_r1343621929_0 (result 81, runtime 0s)
+2025-12-22T12:16:32+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:18:36+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:21:51+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:24:16+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:25:59+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:27:22+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:29:05+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:29:47+00:00 [68] start args="" files="/home/boincadm/project/upload/1d5/cifar100_keep_r1_0_r1080530084_0"
+2025-12-22T12:29:47+00:00 [68] saved cifar100_keep_r1_0_r1080530084_0 from /home/boincadm/project/upload/1d5/cifar100_keep_r1_0_r1080530084_0 (result 100, runtime 0s)
+2025-12-22T12:31:30+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:33:44+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:35:58+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:38:52+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:40:46+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:42:39+00:00 [unknown_wu] start args="" files=""
+2025-12-22T12:43:59+00:00 [cifar100_gpu_r1] start args="" files="/home/boincadm/project/upload/131/cifar100_gpu_r1_0_r216613028_0"
+2025-12-22T12:43:59+00:00 [cifar100_gpu_r1] saved cifar100_gpu_r1_0_r216613028_0 from /home/boincadm/project/upload/131/cifar100_gpu_r1_0_r216613028_0 (result 104, runtime 0s)
+2025-12-22T12:44:04+00:00 [cifar100_gpu_r1] start args="" files="/home/boincadm/project/upload/151/cifar100_gpu_r1_1_r610078176_0"
+2025-12-22T12:44:04+00:00 [cifar100_gpu_r1] saved cifar100_gpu_r1_1_r610078176_0 from /home/boincadm/project/upload/151/cifar100_gpu_r1_1_r610078176_0 (result 105, runtime 0s)
+2025-12-22T12:44:10+00:00 [cifar100_gpu_r2] start args="" files="/home/boincadm/project/upload/247/cifar100_gpu_r2_0_r1342268302_0"
+2025-12-22T12:44:10+00:00 [cifar100_gpu_r2] saved cifar100_gpu_r2_0_r1342268302_0 from /home/boincadm/project/upload/247/cifar100_gpu_r2_0_r1342268302_0 (result 106, runtime 0s)
+2025-12-22T12:44:15+00:00 [cifar100_gpu_r2] start args="" files="/home/boincadm/project/upload/6d/cifar100_gpu_r2_1_r1780565878_0"
+2025-12-22T12:44:15+00:00 [cifar100_gpu_r2] saved cifar100_gpu_r2_1_r1780565878_0 from /home/boincadm/project/upload/6d/cifar100_gpu_r2_1_r1780565878_0 (result 107, runtime 0s)
+2025-12-22T12:44:22+00:00 [cifar100_gpu_r3] start args="" files="/home/boincadm/project/upload/19c/cifar100_gpu_r3_0_r51603079_0"
+2025-12-22T12:44:22+00:00 [cifar100_gpu_r3] saved cifar100_gpu_r3_0_r51603079_0 from /home/boincadm/project/upload/19c/cifar100_gpu_r3_0_r51603079_0 (result 108, runtime 0s)
+2025-12-22T12:44:27+00:00 [cifar100_gpu_r3] start args="" files="/home/boincadm/project/upload/39e/cifar100_gpu_r3_1_r11945979_0"
+2025-12-22T12:44:27+00:00 [cifar100_gpu_r3] saved cifar100_gpu_r3_1_r11945979_0 from /home/boincadm/project/upload/39e/cifar100_gpu_r3_1_r11945979_0 (result 109, runtime 0s)
